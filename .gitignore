@@ -1,0 +1,17 @@
+# Checkup results, local config and private patterns. Local only; never commit.
+results/
+
+# Python
+__pycache__/
+
+# macOS
+.DS_Store
+
+# Claude Code. The global gitignore excludes .claude/ wholesale, so re-include
+# the directory and then track only the skills that belong to this repository.
+!.claude/
+.claude/*
+!.claude/skills/
+
+# The global gitignore also excludes AGENTS.md; this repository ships one.
+!AGENTS.md

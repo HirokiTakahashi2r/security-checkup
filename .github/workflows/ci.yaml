@@ -1,0 +1,33 @@
+name: CI
+on:
+  push:
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      # results/ holds checkup reports about the owner's machine and is gitignored,
+      # so anything tracked under it is a mistake worth failing on.
+      - name: Guard against private data
+        run: |
+          leaked=$(git ls-files -- results)
+          if [ -n "$leaked" ]; then
+            echo "ERROR: results/ must not be committed to this public repository:"
+            echo "$leaked"
+            exit 1
+          fi
+
+      # The private-value list lives only on the owner's machine, so CI checks secret shapes only.
+      - name: Check for secrets
+        run: python3 -m security_checkup.secrets --tracked
+
+      - name: Run tests
+        run: python3 -m unittest discover tests

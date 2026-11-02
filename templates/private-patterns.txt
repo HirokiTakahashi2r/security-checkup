@@ -1,0 +1,4 @@
+# One value per line. Commits that contain any of these (case-insensitive) are blocked.
+# Lines starting with # are ignored. Copy this file to results/private-patterns.txt.
+# Typical entries: your username, home path, employer and client names,
+# cloud account IDs, profile names, internal host names.

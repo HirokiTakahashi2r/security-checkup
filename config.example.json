@@ -1,0 +1,11 @@
+{
+  "scan_roots": ["~/src"],
+  "ssh_key_dirs": ["~/.ssh"],
+  "iam_checks": [
+    {"profile": "my-sso-profile", "user": "my-iam-user"}
+  ],
+  "node_version_file": "~/src/my-app/Dockerfile",
+  "extra_secret_scans": {
+    "old_credentials": ["~/backup/credentials*"]
+  }
+}
